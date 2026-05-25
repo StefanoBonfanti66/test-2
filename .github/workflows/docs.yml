@@ -53,7 +53,7 @@ jobs:
           python -m http.server 8000 --directory site &
           SERVER_PID=$!
           sleep 3
-          node -e "const { chromium } = require('playwright'); (async()=>{ const browser = await chromium.launch({headless:true}); const page = await browser.newPage(); await page.goto('http://127.0.0.1:8000/print_page.html', {waitUntil:'networkidle'}); await page.pdf({ path:'project-documentation.pdf', format:'A4', printBackground:true, margin:{top:'18mm',right:'12mm',bottom:'18mm',left:'12mm'} }); await browser.close(); })();"
+          node -e "const { chromium } = require('playwright'); (async()=>{ const browser = await chromium.launch({headless:true}); const page = await browser.newPage(); await page.goto('http://127.0.0.1:8000/print_page/', {waitUntil:'networkidle'}); await page.pdf({ path:'project-documentation.pdf', format:'A4', printBackground:true, margin:{top:'18mm',right:'12mm',bottom:'18mm',left:'12mm'} }); await browser.close(); })();"
           kill $SERVER_PID
 
       - name: Upload PDF artifact
