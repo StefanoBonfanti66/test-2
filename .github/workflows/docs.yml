@@ -48,12 +48,25 @@ jobs:
           npm install playwright
           npx playwright install --with-deps chromium
 
+      - name: Detect print page
+        run: |
+          find site -maxdepth 3 \( -name 'print_page.html' -o -path '*/print_page/index.html' \) | sort
+          if [ -f site/print_page.html ]; then
+            echo "PRINT_URL=http://127.0.0.1:8000/print_page.html" >> $GITHUB_ENV
+          elif [ -f site/print_page/index.html ]; then
+            echo "PRINT_URL=http://127.0.0.1:8000/print_page/" >> $GITHUB_ENV
+          else
+            echo "Print page not found in site/"
+            find site -maxdepth 3 | sort | head -n 200
+            exit 1
+          fi
+
       - name: Generate PDF from print page
         run: |
           python -m http.server 8000 --directory site &
           SERVER_PID=$!
           sleep 3
-          node -e "const { chromium } = require('playwright'); (async()=>{ const browser = await chromium.launch({headless:true}); const page = await browser.newPage(); await page.goto('http://127.0.0.1:8000/print_page/', {waitUntil:'networkidle'}); await page.pdf({ path:'project-documentation.pdf', format:'A4', printBackground:true, margin:{top:'18mm',right:'12mm',bottom:'18mm',left:'12mm'} }); await browser.close(); })();"
+          node -e "const { chromium } = require('playwright'); (async()=>{ const browser = await chromium.launch({headless:true}); const page = await browser.newPage(); await page.goto(process.env.PRINT_URL, {waitUntil:'networkidle'}); await page.pdf({ path:'project-documentation.pdf', format:'A4', printBackground:true, margin:{top:'18mm',right:'12mm',bottom:'18mm',left:'12mm'} }); await browser.close(); })();"
           kill $SERVER_PID
 
       - name: Upload PDF artifact
