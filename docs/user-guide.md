@@ -2,18 +2,31 @@
 
 ## Accesso
 
-Descrivere come l’utente accede al sistema.
+L'applicazione utilizza Supabase Authentication per l'accesso. Gli utenti possono registrarsi e accedere tramite:
+- Email e password
+- Provider OAuth (da configurare in Supabase)
 
-## Flussi principali
+## Stato attuale
 
-### Flusso 1
+Il progetto è in fase di **inizializzazione**. Attualmente è presente:
+- Homepage placeholder con routing base
+- Configurazione Supabase client
+- Setup TailwindCSS 4
 
-Descrivere il primo flusso operativo.
+## Flussi principali (da implementare)
 
-### Flusso 2
+### Visualizzazione calendario gare
 
-Descrivere il secondo flusso operativo.
+1. Atleta accede all'applicazione
+2. Visualizza elenco gare disponibili
+3. Filtra per data, distanza o tipologia
+
+### Registrazione ad una gara
+
+1. Atleta seleziona una gara dal calendario
+2. Inserisce i dati di registrazione
+3. Conferma e paga (se richiesta iscrizione a pagamento)
 
 ## Problemi frequenti
 
-Da compilare.
+*Da aggiornare man mano che emergono casi d'uso reali.*
