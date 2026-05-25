@@ -1,0 +1,20 @@
+site_name: test-2 docs
+site_description: Documentazione progetto per clienti, utenti e amministratori
+
+nav:
+  - Home: index.md
+  - Panoramica: overview.md
+  - Guida utente: user-guide.md
+  - Guida amministratore: admin-guide.md
+  - FAQ: faq.md
+  - Changelog: changelog.md
+
+theme:
+  name: material
+  language: it
+
+plugins:
+  - search
+  - print-site:
+      add_to_navigation: true
+      print_page_title: PDF export
